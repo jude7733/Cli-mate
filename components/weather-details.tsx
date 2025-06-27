@@ -1,6 +1,7 @@
 import { WeatherResponse } from "@/types/weatherData";
 import { Loader } from "./loader";
 import { Cloudy, Droplets, Eye, Sunrise, Sunset, Thermometer, ThermometerSnowflake, ThermometerSun, Wind, WindArrowDown } from "lucide-react";
+import { Separator } from "./ui/separator";
 
 export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherResponse, loading: boolean }) => {
 
@@ -30,6 +31,7 @@ export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherR
                 </div>
               </div>
             </div>
+            <Separator className="" />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 w-full mt-4">
               <div className="flex flex-col items-center hover:scale-105 transition-transform hover:shadow-lg">
                 <Thermometer className="w-10 h-10" />

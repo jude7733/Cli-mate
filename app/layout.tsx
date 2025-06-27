@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import type { Metadata } from "next";
 import './globals.css'
 import Navbar from '@/components/navbar';
+import { ThemeProvider } from "@/components/theme-provider"
 
 const fontHeading = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -37,8 +38,15 @@ export default function RootLayout({
           fontBody.variable
         )}
       >
-        <Navbar />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
