@@ -44,6 +44,7 @@ export interface WeatherResponse {
   wind: WeatherWind;
   clouds: WeatherClouds;
   sys: WeatherSys;
+  dt: number;
   visibility?: number;
   name: string;
   id: number;
