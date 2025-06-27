@@ -5,14 +5,31 @@ import { Input } from "@/components/ui/input";
 import { WeatherDetails } from "@/components/weather-details"
 import { searchWeatherByLocation } from "@/functions/fetch-by-location";
 
+type Location = {
+  latitude: number;
+  longitude: number;
+} | null;
+
 export default function Home() {
   const [data, setData] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState<Location>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch default data for "kochi" on mount
   useEffect(() => {
     setLoading(true);
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+      );
+    }
+    // TODO: fix location access error 
+    console.log("Current Location:", location);
     searchWeatherByLocation("kochi").then(setData)
     setLoading(false);
   }, []);
