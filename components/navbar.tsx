@@ -12,37 +12,7 @@ export default function Navbar() {
         <h1 className="text-xl font-bold">Cli mate</h1>
       </div>
 
-      <div>
-        <ModeToggle />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <MenuIcon className="w-6 h-6" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>
-              <Link href="#" className="flex items-center gap-2" prefetch={false}>
-                <ClockIcon className="w-4 h-4" />
-                Hourly Forecast
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link href="#" className="flex items-center gap-2" prefetch={false}>
-                <MapIcon className="w-4 h-4" />
-                Radar Map
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href="#" className="flex items-center gap-2" prefetch={false}>
-                <SettingsIcon className="w-4 h-4" />
-                Settings
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      <ModeToggle />
     </header>
   )
 }
