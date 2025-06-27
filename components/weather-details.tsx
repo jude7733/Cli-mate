@@ -1,9 +1,18 @@
+import { useState } from "react";
 import { WeatherResponse } from "@/types/weatherData";
 import { Loader } from "./loader";
 import { Cloudy, Droplets, Eye, Sunrise, Sunset, Thermometer, ThermometerSnowflake, ThermometerSun, Wind, WindArrowDown } from "lucide-react";
 import { Separator } from "./ui/separator";
 
 export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherResponse, loading: boolean }) => {
+  const [unit, setUnit] = useState<"C" | "F">("C");
+
+  const toTemp = (k: number | undefined) => {
+    if (k === undefined) return "--";
+    return unit === "C"
+      ? `${Math.round(k - 273.15)}°C`
+      : `${Math.round((k - 273.15) * 9 / 5 + 32)}°F`;
+  };
 
   return (
     <main className="flex-1 overflow-auto p-4 md:p-16">
@@ -21,7 +30,10 @@ export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherR
               />
               <div className="text-start">
                 <div className="text-5xl flex font-bold">
-                  {weatherData.main ? Math.round(weatherData.main.temp - 273.15) : "--"}°
+                  {weatherData.main ? (unit === "C"
+                    ? Math.round(weatherData.main.temp - 273.15)
+                    : Math.round((weatherData.main.temp - 273.15) * 9 / 5 + 32)
+                  ) : "--"}°
                 </div>
                 <div className="text-2xl text-bold">
                   {weatherData.weather?.[0]?.main || "--"}
@@ -36,7 +48,7 @@ export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherR
               <div className="flex flex-col items-center hover:scale-105 transition-transform hover:shadow-lg">
                 <Thermometer className="w-10 h-10" />
                 <span className="font-semibold">Feels Like</span>
-                <span>{weatherData.main ? Math.round(weatherData.main.feels_like - 273.15) : "--"}°C</span>
+                <span>{toTemp(weatherData.main?.feels_like)}</span>
               </div>
               <div className="flex flex-col items-center hover:scale-105 transition-transform hover:shadow-lg">
                 <Droplets className="w-10 h-10" />
@@ -58,12 +70,12 @@ export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherR
               <div className="flex flex-col items-center hover:scale-105 transition-transform hover:shadow-lg">
                 <ThermometerSnowflake className="w-10 h-10" />
                 <span className="font-semibold">Min Temp</span>
-                <span>{weatherData.main ? Math.round(weatherData.main.temp_min - 273.15) : "--"}°C</span>
+                <span>{toTemp(weatherData.main?.temp_min)}</span>
               </div>
               <div className="flex flex-col items-center hover:scale-105 transition-transform hover:shadow-lg">
                 <ThermometerSun className="w-10 h-10" />
                 <span className="font-semibold">Max Temp</span>
-                <span>{weatherData.main ? Math.round(weatherData.main.temp_max - 273.15) : "--"}°C</span>
+                <span>{toTemp(weatherData.main?.temp_max)}</span>
               </div>
               <div className="flex flex-col items-center hover:scale-105 transition-transform hover:shadow-lg">
                 <Cloudy className="w-10 h-10" />
@@ -103,6 +115,21 @@ export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherR
               {weatherData.dt
                 ? new Date(weatherData.dt * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
                 : "--"}
+            </div>
+            <div className="mt-4 flex gap-2 items-center">
+              <span className="text-sm">Show temperature in:</span>
+              <button
+                className={`px-2 py-1 rounded ${unit === "C" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                onClick={() => setUnit("C")}
+              >
+                °C
+              </button>
+              <button
+                className={`px-2 py-1 rounded ${unit === "F" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                onClick={() => setUnit("F")}
+              >
+                °F
+              </button>
             </div>
           </div>
         )
