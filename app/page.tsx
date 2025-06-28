@@ -57,10 +57,10 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-start py-10 min-h-screen bg-linear-to-b from-cyan-100 via-blue-300 to-indigo-400 dark:bg-linear-to-b dark:from-zinc-500 dark:via-stone-600 dark:to-zinc-900">
-      <div className="flex-1 w-full max-w-4xl p-4 md:p-10 bg-secondary/50 shadow-primary rounded-lg shadow-sm">
+    <div className="flex flex-col items-center justify-start py-10 bg-linear-to-b from-cyan-100 via-blue-300 to-indigo-400 dark:bg-linear-to-b dark:from-zinc-500 dark:via-stone-600 dark:to-zinc-900">
+      <div className="flex flex-col items-center justify-center w-full max-w-4xl p-4 md:px-20 bg-secondary/50 shadow-primary rounded-lg shadow-sm">
         <form
-          className="flex w-full max-w-4xl items-center gap-2 m-4 bg-card/10 p-4 rounded-lg shadow-lg"
+          className="flex w-full max-w-4xl items-center gap-2 m-4 bg-secondary p-4 rounded-lg shadow-lg"
           onSubmit={(e) => {
             e.preventDefault();
             handleSearch((e.target as HTMLFormElement).location.value);
