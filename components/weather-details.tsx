@@ -6,7 +6,7 @@ import { Separator } from "./ui/separator";
 import Image from "next/image";
 import { Progress } from "./ui/progress";
 
-export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherResponse, loading: boolean }) => {
+export const WeatherDetails = ({ weatherData, loading }: { weatherData: WeatherResponse | null | undefined, loading: boolean }) => {
   const [unit, setUnit] = useState<"C" | "F">("C");
 
   const toTemp = (k: number | undefined) => {

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { WeatherDetails } from "@/components/weather-details"
 import { searchWeatherByLocation } from "@/functions/fetch-by-location";
+import { WeatherResponse } from "@/types/weatherData";
 
 type Location = {
   latitude: number;
@@ -11,7 +12,7 @@ type Location = {
 } | null;
 
 export default function Home() {
-  const [data, setData] = useState<any | null>(null);
+  const [data, setData] = useState<WeatherResponse | null | undefined>(null);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState<Location>(null);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +33,7 @@ export default function Home() {
     console.log("Current Location:", location);
     searchWeatherByLocation("kochi").then(setData)
     setLoading(false);
-  }, []);
+  }, [location]);
 
   const handleSearch = async (location: string) => {
     setLoading(true);
